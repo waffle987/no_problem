@@ -4,21 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:no_problem/authentication/models/town_council_model.dart';
 
+import '../../base/ui/unauth_home_page.dart';
 import '../models/mediator_model.dart';
 
 class AuthController extends GetxController {
   static AuthController to = Get.find();
 
   /// Text Editing Controllers
-  final TextEditingController phoneTextEditingController =
-      TextEditingController();
-  final TextEditingController otpTextEditingController =
-      TextEditingController();
   final TextEditingController emailTextController = TextEditingController();
   final TextEditingController passwordTextController = TextEditingController();
   final TextEditingController usernameTextController = TextEditingController();
-  final TextEditingController bioTextController = TextEditingController();
-  final TextEditingController emojiTextController = TextEditingController();
+  final TextEditingController townCouncilLocationTextController =
+      TextEditingController();
 
   /// Firebase instances
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -28,6 +25,7 @@ class AuthController extends GetxController {
   Rxn<User> firebaseUser = Rxn<User>();
   Rxn<TownCouncilModel> firestoreTownCouncil = Rxn<TownCouncilModel>();
   Rxn<MediatorModel> firestoreMediator = Rxn<MediatorModel>();
+  RxString type = RxString("");
   RxBool isPasswordVisible = RxBool(true);
   RxBool isNewUser = RxBool(false);
   RxBool isLoading = RxBool(false);
@@ -59,7 +57,7 @@ class AuthController extends GetxController {
 
       Get.offAll(() => Scaffold());
     } else {
-      Get.offAll(() => Scaffold());
+      Get.offAll(() => UnAuthHomePage());
     }
   }
 
@@ -109,150 +107,26 @@ class AuthController extends GetxController {
     update();
   }
 
-  /// Create the firestore USER in users collection
-  void _createUserFirestore(UserModel user, User _firebaseUser) {
+  /// Create the firestore TOWN COUNCIL in users collection
+  void _createTownCouncilFirestore(
+      TownCouncilModel townCouncil, User _firebaseUser) {
     _firebaseFirestore
-        .collection("users")
+        .collection("townCouncil")
         .doc(_firebaseUser.uid)
-        .set(user.toJson());
+        .set(townCouncil.toJson());
     update();
   }
 
-  /// Create the firestore MERCHANT in users collection
-  void _createMerchantFirestore(MerchantModel merchant, User _firebaseUser) {
+  /// Create the firestore MEDIATOR in users collection
+  void _createMediatorFirestore(MediatorModel mediator, User _firebaseUser) {
     _firebaseFirestore
-        .collection("merchants")
+        .collection("mediator")
         .doc(_firebaseUser.uid)
-        .set(merchant.toJson());
+        .set(mediator.toJson());
     update();
   }
 
-  void signInWithPhoneNumber() async {
-    /// Create a PhoneAuthCredential with the code
-    PhoneAuthCredential credential = PhoneAuthProvider.credential(
-      verificationId: verificationId,
-      smsCode: otpTextEditingController.text,
-    );
-
-    /// Sign the user in (or link) with the credential
-    await _firebaseAuth.signInWithCredential(credential).then((result) async {
-      isLoading.value = false;
-
-      if (result.additionalUserInfo!.isNewUser) {
-        final String link = await _dynamicLinkService.createProfileLink(
-          id: result.user!.uid,
-          userType: 'user',
-        );
-
-        isNewUser.value = true;
-
-        /// Create the new USER object
-        UserModel _newUser = UserModel(
-          id: result.user!.uid,
-          phoneNumber: result.user!.phoneNumber!,
-          username: 'Zap User',
-          photoUrl: '',
-          bio: bioTextController.text,
-          profileUrl: link,
-          tag: '',
-        );
-
-        /// Create the USER in Firestore
-        _createUserFirestore(_newUser, result.user!);
-
-        /// Clear Text Editing Controllers
-        phoneTextEditingController.clear();
-        otpTextEditingController.clear();
-      }
-    });
-  }
-
-  /// Method to handle user sign in using phone (USER)
-  void verifyPhoneNumber() async {
-    isLoading.value = true;
-
-    try {
-      await _firebaseAuth.verifyPhoneNumber(
-        phoneNumber: "+65${phoneTextEditingController.text}",
-        verificationCompleted: (PhoneAuthCredential credential) async {
-          await _firebaseAuth
-              .signInWithCredential(credential)
-              .then((result) async {
-            isLoading.value = false;
-
-            if (result.additionalUserInfo!.isNewUser) {
-              isNewUser.value = true;
-
-              final String link = await _dynamicLinkService.createProfileLink(
-                id: result.user!.uid,
-                userType: 'user',
-              );
-
-              /// Create the new USER object
-              UserModel _newUser = UserModel(
-                id: result.user!.uid,
-                phoneNumber: result.user!.phoneNumber!,
-                username: 'Zap User',
-                photoUrl: '',
-                bio: bioTextController.text,
-                profileUrl: link,
-                tag: '',
-              );
-
-              /// Create the USER in Firestore
-              _createUserFirestore(_newUser, result.user!);
-
-              /// Clear Text Editing Controllers
-              phoneTextEditingController.clear();
-              otpTextEditingController.clear();
-            }
-          });
-        },
-        codeAutoRetrievalTimeout: (String _verificationId) {
-          verificationId = _verificationId;
-        },
-        verificationFailed: (FirebaseAuthException exception) {
-          if (exception.code == 'invalid-phone-number') {
-            Get.snackbar(
-              'Invalid phone number!'.tr,
-              "Please use a valid phone number",
-              snackPosition: SnackPosition.TOP,
-              duration: Duration(seconds: 10),
-              backgroundColor: Colors.red,
-              colorText: Get.theme.snackBarTheme.actionTextColor,
-            );
-          } else {
-            print(exception);
-
-            Get.snackbar(
-              'Error!'.tr,
-              exception.code,
-              snackPosition: SnackPosition.TOP,
-              duration: Duration(seconds: 10),
-              backgroundColor: Colors.red,
-              colorText: Get.theme.snackBarTheme.actionTextColor,
-            );
-          }
-        },
-        codeSent: (String _verificationId, int? resendToken) {
-          verificationId = _verificationId;
-
-          Get.to(() => OTPPage());
-        },
-      );
-    } catch (error) {
-      Get.snackbar(
-        'Sign up error'.tr,
-        "$error",
-        snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 10),
-        backgroundColor: Colors.red,
-        colorText: Get.theme.snackBarTheme.actionTextColor,
-      );
-    }
-  }
-
-  /// Method to handle user sign in using email and password (MERCHANT)
+  /// Method to handle user sign in using email and password
   void signInWithEmailAndPassword(BuildContext context) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
@@ -265,7 +139,7 @@ class AuthController extends GetxController {
         'Incorrect Email or Password'.tr,
         'The email or password you entered is incorrect. Please try again.'.tr,
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 7),
+        duration: const Duration(seconds: 7),
         backgroundColor: Colors.red,
         colorText: Get.theme.snackBarTheme.actionTextColor,
       );
@@ -281,43 +155,40 @@ class AuthController extends GetxController {
         password: passwordTextController.text,
       )
           .then((result) async {
-        print('uID: ' + result.user!.uid.toString());
-        print('email: ' + result.user!.email.toString());
+        if (type.value == "townCouncil") {
+          /// Create the new TOWN COUNCIL object
+          TownCouncilModel _newTownCouncil = TownCouncilModel(
+            id: result.user!.uid,
+            email: result.user!.email!,
+            townCouncilLocation: townCouncilLocationTextController.text,
+          );
 
-        final String link = await _dynamicLinkService.createProfileLink(
-          id: result.user!.uid,
-          userType: 'merchant',
-        );
+          /// Create the TOWN COUNCIL in Firestore
+          _createTownCouncilFirestore(_newTownCouncil, result.user!);
+        } else {
+          /// Create the new MEDIATOR object
+          MediatorModel _newMediator = MediatorModel(
+            id: result.user!.uid,
+            email: result.user!.email!,
+            username: usernameTextController.text,
+          );
 
-        /// Create the new MERCHANT object
-        MerchantModel _newMerchant = MerchantModel(
-          id: result.user!.uid,
-          email: result.user!.email!,
-          username: usernameTextController.text,
-          photoUrl: '',
-          bio: bioTextController.text,
-          profileUrl: link,
-          tag: '',
-          verified: false,
-          emoji: emojiTextController.text,
-        );
-
-        /// Create the MERCHANT in Firestore
-        _createMerchantFirestore(_newMerchant, result.user!);
+          /// Create the MEDIATOR in Firestore
+          _createMediatorFirestore(_newMediator, result.user!);
+        }
 
         /// Clear Text Editing Controllers
         emailTextController.clear();
         passwordTextController.clear();
         usernameTextController.clear();
-        bioTextController.clear();
-        emojiTextController.clear();
+        townCouncilLocationTextController.clear();
       });
     } on FirebaseAuthException catch (error) {
       Get.snackbar(
         'Sign up error'.tr,
         error.message!,
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 10),
+        duration: const Duration(seconds: 10),
         backgroundColor: Colors.red,
         colorText: Get.theme.snackBarTheme.actionTextColor,
       );
@@ -333,7 +204,7 @@ class AuthController extends GetxController {
         'auth.resetPasswordNoticeTitle'.tr,
         'auth.resetPasswordNotice'.tr,
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
         backgroundColor: Colors.red,
         colorText: Get.theme.snackBarTheme.actionTextColor,
       );
@@ -342,7 +213,7 @@ class AuthController extends GetxController {
         'auth.resetPasswordFailed'.tr,
         error.message!,
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 10),
+        duration: const Duration(seconds: 10),
         backgroundColor: Colors.red,
         colorText: Get.theme.snackBarTheme.actionTextColor,
       );
@@ -355,16 +226,11 @@ class AuthController extends GetxController {
     emailTextController.clear();
     passwordTextController.clear();
     usernameTextController.clear();
-    bioTextController.clear();
-    phoneTextEditingController.clear();
-    otpTextEditingController.clear();
+    townCouncilLocationTextController.clear();
 
-    /// Reset location ID value (For Staff accounts)
-    locationId.value = '';
-
-    /// Reset Firestore USER and MERCHANT value
-    firestoreUser.value = null;
-    firestoreMerchant.value = null;
+    /// Reset Firestore TOWN COUNCIL and MEDIATOR value
+    firestoreMediator.value = null;
+    firestoreTownCouncil.value = null;
 
     return _firebaseAuth.signOut();
   }

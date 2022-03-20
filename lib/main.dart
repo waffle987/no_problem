@@ -1,7 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:no_problem/base/ui/unauth_home_page.dart';
+import 'package:get/get.dart';
+import 'package:no_problem/general_widgets/centred_view.dart';
+import 'package:no_problem/general_widgets/progress_indicators.dart';
 
-void main() {
+import 'authentication/controllers/auth_controller.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+
+  Get.put<AuthController>(AuthController());
+
   runApp(const MyApp());
 }
 
@@ -10,12 +21,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'No Problem',
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const UnAuthHomePage(),
+      home: CenteredView(
+        child: circularProgressIndicator(context: context),
+      ),
     );
   }
 }
