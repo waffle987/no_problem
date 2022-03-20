@@ -1,0 +1,45 @@
+name: no_problem
+description: A mediation platform that aims to increase access to justice through cost-effect dispute resolution.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Firebase dependencies
+  firebase_core: ^1.13.1
+  firebase_auth: ^3.1.1
+  cloud_firestore: ^3.1.10
+
+  # UI dependencies
+  cupertino_icons: ^1.0.2
+  animated_text_kit: ^4.2.1
+  responsive_builder: ^0.4.1
+
+  # State management dependencies
+  get: ^4.6.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^1.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/
