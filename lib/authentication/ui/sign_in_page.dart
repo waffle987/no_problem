@@ -22,7 +22,7 @@ class SignInPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         title: Row(
           children: [
             CircleAvatar(
@@ -32,9 +32,10 @@ class SignInPage extends StatelessWidget {
             const Text(
               'No Problem',
               style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w700),
+                fontSize: 20,
+                color: Colors.black,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ],
         ),
@@ -48,11 +49,13 @@ class SignInPage extends StatelessWidget {
                 top: _mediaQuery.size.height * 0.0001,
                 bottom: _mediaQuery.size.height * 0.0001),
             child: Container(
-              color: Colors.white,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20.0),
+              ),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(50, 30, 50, 500),
+                padding: const EdgeInsets.fromLTRB(50, 30, 50, 50),
                 child: Column(
-                  mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -93,16 +96,6 @@ class SignInPage extends StatelessWidget {
                       color: Colors.greenAccent,
                     ),
                     verticalSpaceMedium,
-                    TextLink(
-                      text: 'Create an Account',
-                      onPressed: () => Get.to(() => Scaffold()),
-                      color: kcMediumGreyColour,
-                    ),
-                    verticalSpaceSmall,
-                    const Text(
-                      'or',
-                      style: TextStyle(color: Colors.white),
-                    ),
                     verticalSpaceSmall,
                     TextLink(
                       text: 'Forgot password?',

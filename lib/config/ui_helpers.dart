@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-const Color primaryColor = Color.fromARGB(255, 31, 229, 146);
+/// Colour theme
+const Color kPrimaryColour = Colors.greenAccent;
+const Color kSecondaryColour = Colors.white;
 
 /// Dimensions and heights
 const Widget horizontalSpaceTiny = SizedBox(width: 5.0);

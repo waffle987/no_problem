@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:no_problem/authentication/ui/sign_in_page.dart';
-import 'package:no_problem/what_we_do/what_we_do_page.dart';
+import 'package:no_problem/team/team_page.dart';
 
+import '../../config/ui_helpers.dart';
+import '../buttons/elongated_button.dart';
 import 'nav_bar_item.dart';
 import 'nav_bar_logo.dart';
 
@@ -11,6 +13,8 @@ class NavigationBarTabletDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final MediaQueryData _mediaQuery = MediaQuery.of(context);
+
     return SizedBox(
       height: 50.0,
       child: Row(
@@ -21,20 +25,17 @@ class NavigationBarTabletDesktop extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              const SizedBox(width: 60),
+              SizedBox(width: _mediaQuery.size.width * 0.05),
               GestureDetector(
-                onTap: () => Get.to(() => Scaffold()),
+                onTap: () => Get.to(() => const TeamPage()),
                 child: const NavBarItem('Team'),
               ),
-              const SizedBox(width: 60),
-              GestureDetector(
-                onTap: () => Get.to(() => const WhatWeDoPage()),
-                child: const NavBarItem('What we do'),
-              ),
-              const SizedBox(width: 60),
-              GestureDetector(
-                onTap: () => Get.to(() => const SignInPage()),
-                child: const NavBarItem('Sign In'),
+              SizedBox(width: _mediaQuery.size.width * 0.05),
+              ElongatedButton(
+                text: 'Sign In',
+                onPressed: () => Get.to(() => const SignInPage()),
+                buttonColour: kPrimaryColour,
+                textColour: kSecondaryColour,
               ),
             ],
           )

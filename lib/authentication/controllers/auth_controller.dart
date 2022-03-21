@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:no_problem/authentication/models/town_council_model.dart';
 
-import '../../base/ui/unauth_home_page.dart';
+import '../../home/ui/unauth_home_page.dart';
 import '../models/mediator_model.dart';
 
 class AuthController extends GetxController {
