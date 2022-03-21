@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:no_problem/authentication/ui/sign_in_page.dart';
+import 'package:no_problem/what_we_do/what_we_do_page.dart';
 
 import 'nav_bar_item.dart';
 import 'nav_bar_logo.dart';
@@ -26,12 +28,12 @@ class NavigationBarTabletDesktop extends StatelessWidget {
               ),
               const SizedBox(width: 60),
               GestureDetector(
-                onTap: () => Get.to(() => Scaffold()),
+                onTap: () => Get.to(() => const WhatWeDoPage()),
                 child: const NavBarItem('What we do'),
               ),
               const SizedBox(width: 60),
               GestureDetector(
-                onTap: () => Get.to(() => Scaffold()),
+                onTap: () => Get.to(() => const SignInPage()),
                 child: const NavBarItem('Sign In'),
               ),
             ],
