@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ComplaintModel {
+  final String id;
   final String name;
   final String description;
   final String numberOfParties;
@@ -9,6 +10,7 @@ class ComplaintModel {
   final Timestamp timestamp;
 
   ComplaintModel({
+    required this.id,
     required this.name,
     required this.description,
     required this.numberOfParties,
@@ -19,10 +21,11 @@ class ComplaintModel {
 
   factory ComplaintModel.fromDocument({required DocumentSnapshot doc}) {
     return ComplaintModel(
+      id: doc['id'],
       name: doc['name'],
       description: doc['description'],
       numberOfParties: doc['numberOfParties'],
-      nameOfParties: doc['nameOfParties'],
+      nameOfParties: doc['nameOfOtherParties'],
       phoneNumber: doc['phoneNumber'],
       timestamp: doc['timestamp'],
     );

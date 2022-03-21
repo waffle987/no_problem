@@ -11,4 +11,10 @@ class Assets {
 
   /// Team page
   static String team = "assets/team.png";
+
+  /// PDPA
+  static String pdpaReminder = "assets/pdpa_reminder.png";
+
+  /// Splash page
+  static String complaintsSplashPage = "complaints_splash_page.png";
 }

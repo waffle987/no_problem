@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:no_problem/authentication/models/town_council_model.dart';
+import 'package:no_problem/authentication/ui/start_up_logic_page.dart';
 
 import '../../home/ui/unauth_home_page.dart';
 import '../models/mediator_model.dart';
@@ -55,7 +56,7 @@ class AuthController extends GetxController {
 
       firestoreMediator.bindStream(streamFirestoreMediator());
 
-      Get.offAll(() => Scaffold());
+      Get.offAll(() => const StartUpLogicPage());
     } else {
       Get.offAll(() => const UnAuthHomePage());
     }

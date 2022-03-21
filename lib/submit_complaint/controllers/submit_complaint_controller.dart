@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
@@ -30,6 +29,7 @@ class SubmitComplaintController extends GetxController {
       final String _id = const Uuid().v4();
 
       _complaintsCollectionReference.doc(_id).set({
+        "id": _id,
         "name": nameTextEditingController.text,
         "description": caseDescriptionTextEditingController.text,
         "numberOfParties": numberOfPartiesTextEditingController.text,
