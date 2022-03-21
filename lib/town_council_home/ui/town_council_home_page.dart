@@ -51,9 +51,12 @@ class TownCouncilHomePage extends StatelessWidget {
         ],
       ),
       body: CenteredView(
-        child: Column(
+        child: ListView(
           children: [
-            Image.asset(Assets.pdpaReminder),
+            SizedBox(
+              height: _mediaQuery.size.height * 0.30,
+              child: Image.asset(Assets.pdpaReminder),
+            ),
             const TownCouncilComplaintsFeed(),
           ],
         ),

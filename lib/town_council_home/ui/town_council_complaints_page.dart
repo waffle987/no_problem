@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:no_problem/config/ui_helpers.dart';
 import 'package:no_problem/general_widgets/buttons/elongated_button.dart';
 import 'package:no_problem/general_widgets/centred_view.dart';
 import 'package:no_problem/submit_complaint/models/complaint_model.dart';
+import 'package:no_problem/town_council_home/controllers/town_council_complaint_feed_controller.dart';
+
+import '../../config/assets.dart';
+import '../../general_widgets/pop_up_dialog.dart';
 
 class TownCouncilComplaintsPage extends StatelessWidget {
   final ComplaintModel complaintModel;
@@ -14,8 +20,11 @@ class TownCouncilComplaintsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData _themeData = Theme.of(context);
     final MediaQueryData _mediaQuery = MediaQuery.of(context);
+
+    /// GetX Controllers
+    final TownCouncilFeedController _townCouncilFeedController =
+        TownCouncilFeedController.to;
 
     Widget _buildSection({
       required String title,
@@ -39,8 +48,9 @@ class TownCouncilComplaintsPage extends StatelessWidget {
     }
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: _themeData.scaffoldBackgroundColor,
+        backgroundColor: Colors.white,
         elevation: 0.0,
         iconTheme: const IconThemeData(color: Colors.black),
       ),
@@ -48,6 +58,11 @@ class TownCouncilComplaintsPage extends StatelessWidget {
         child: ListView(
           shrinkWrap: true,
           children: [
+            SizedBox(
+              height: _mediaQuery.size.height * 0.30,
+              child: Image.asset(Assets.pdpaReminder),
+            ),
+            SizedBox(height: _mediaQuery.size.height * 0.02),
             _buildSection(
               title: "Name",
               subtitle: complaintModel.name,
@@ -78,7 +93,32 @@ class TownCouncilComplaintsPage extends StatelessWidget {
                   horizontal: _mediaQuery.size.width * 0.3),
               child: ElongatedButton(
                 text: "Send for Mediation",
-                onPressed: () {},
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (dialogContext) {
+                    return popUpDialog(
+                      dialogContext: dialogContext,
+                      function: () {
+                        _townCouncilFeedController.sendForMediation(
+                            complaintModel: complaintModel);
+
+                        Navigator.pop(dialogContext);
+
+                        Get.back();
+                      },
+                      description: 'Did you check for consent?',
+                      noColourButtonText: 'No',
+                      colourButtonText: 'Yes',
+                      buttonColour: Colors.green,
+                      icon: const Icon(
+                        FontAwesomeIcons.info,
+                        color: Colors.white,
+                        size: 50.0,
+                      ),
+                      circularImageColour: Colors.green,
+                    );
+                  },
+                ),
                 buttonColour: kPrimaryColour,
                 textColour: kSecondaryColour,
               ),
@@ -89,7 +129,32 @@ class TownCouncilComplaintsPage extends StatelessWidget {
                   horizontal: _mediaQuery.size.width * 0.3),
               child: ElongatedButton(
                 text: "Dismiss Complaint",
-                onPressed: () {},
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (dialogContext) {
+                    return popUpDialog(
+                      dialogContext: dialogContext,
+                      function: () {
+                        _townCouncilFeedController.deleteComplaint(
+                            complaintModel: complaintModel);
+
+                        Navigator.pop(dialogContext);
+
+                        Get.back();
+                      },
+                      description: 'Dismiss complaint?',
+                      noColourButtonText: 'No',
+                      colourButtonText: 'Yes',
+                      buttonColour: Colors.red,
+                      icon: const Icon(
+                        FontAwesomeIcons.times,
+                        color: Colors.white,
+                        size: 50.0,
+                      ),
+                      circularImageColour: Colors.red,
+                    );
+                  },
+                ),
                 buttonColour: Colors.red,
                 textColour: Colors.white,
               ),

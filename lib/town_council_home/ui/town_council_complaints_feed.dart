@@ -26,6 +26,7 @@ class TownCouncilComplaintsFeed extends StatelessWidget {
           ? _townCouncilFeedController.complaints.value!.isNotEmpty
               ? ListView.builder(
                   shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount:
                       _townCouncilFeedController.complaints.value!.length,
                   itemBuilder: (_, index) {
