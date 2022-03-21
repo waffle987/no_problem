@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:no_problem/config/ui_helpers.dart';
+import 'package:no_problem/general_widgets/buttons/elongated_button.dart';
 import 'package:no_problem/general_widgets/centred_view.dart';
 import 'package:no_problem/submit_complaint/controllers/submit_complaint_controller.dart';
 
@@ -72,6 +74,17 @@ class SubmitComplaintPage extends StatelessWidget {
               textEditingController: _submitComplaintController
                   .caseDescriptionTextEditingController,
               textInputType: TextInputType.multiline,
+            ),
+            SizedBox(height: _mediaQuery.size.height * 0.10),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: _mediaQuery.size.width * 0.25),
+              child: ElongatedButton(
+                text: "Submit",
+                onPressed: () => _submitComplaintController.submitComplaint(),
+                buttonColour: kPrimaryColour,
+                textColour: kSecondaryColour,
+              ),
             ),
           ],
         ),

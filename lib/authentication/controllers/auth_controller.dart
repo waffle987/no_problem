@@ -57,7 +57,7 @@ class AuthController extends GetxController {
 
       Get.offAll(() => Scaffold());
     } else {
-      Get.offAll(() => UnAuthHomePage());
+      Get.offAll(() => const UnAuthHomePage());
     }
   }
 
