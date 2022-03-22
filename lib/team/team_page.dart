@@ -17,6 +17,13 @@ class TeamPage extends StatelessWidget {
       body: CenteredView(
         child: ListView(
           children: [
+            const Text(
+              "THE TEAM",
+              style: TextStyle(
+                fontSize: 50.0,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
             Image.asset(Assets.team),
           ],
         ),
