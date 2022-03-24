@@ -14,6 +14,8 @@ class SubmitComplaintController extends GetxController {
       TextEditingController();
   final TextEditingController phoneNumberTextEditingController =
       TextEditingController();
+  final TextEditingController relationshipTextEditingController =
+      TextEditingController();
 
   /// Collection references
   final CollectionReference _complaintsCollectionReference =
@@ -25,16 +27,19 @@ class SubmitComplaintController extends GetxController {
         caseDescriptionTextEditingController.text.isNotEmpty &&
         numberOfPartiesTextEditingController.text.isNotEmpty &&
         nameOfOtherPartiesTextEditingController.text.isNotEmpty &&
-        phoneNumberTextEditingController.text.isNotEmpty) {
+        phoneNumberTextEditingController.text.isNotEmpty &&
+        relationshipTextEditingController.text.isNotEmpty) {
       final String _id = const Uuid().v4();
 
       _complaintsCollectionReference.doc(_id).set({
+        "status": "new",
         "id": _id,
         "name": nameTextEditingController.text,
         "description": caseDescriptionTextEditingController.text,
         "numberOfParties": numberOfPartiesTextEditingController.text,
         "nameOfOtherParties": nameOfOtherPartiesTextEditingController.text,
         "phoneNumber": phoneNumberTextEditingController.text,
+        "relationship": relationshipTextEditingController.text,
         "timestamp": DateTime.now(),
       });
 

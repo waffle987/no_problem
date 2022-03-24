@@ -61,7 +61,7 @@ class SignInPage extends StatelessWidget {
                   children: <Widget>[
                     verticalSpaceTiny,
                     const Text(
-                      'Log In',
+                      'Sign In',
                       style: TextStyle(
                         fontSize: 35.0,
                         color: Colors.black,

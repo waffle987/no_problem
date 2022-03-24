@@ -142,7 +142,7 @@ class AuthController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
         duration: const Duration(seconds: 7),
         backgroundColor: Colors.red,
-        colorText: Get.theme.snackBarTheme.actionTextColor,
+        colorText: Colors.white,
       );
     }
   }
@@ -191,7 +191,7 @@ class AuthController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
         duration: const Duration(seconds: 10),
         backgroundColor: Colors.red,
-        colorText: Get.theme.snackBarTheme.actionTextColor,
+        colorText: Colors.white,
       );
     }
   }
@@ -207,7 +207,7 @@ class AuthController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
         duration: const Duration(seconds: 5),
         backgroundColor: Colors.red,
-        colorText: Get.theme.snackBarTheme.actionTextColor,
+        colorText: Colors.white,
       );
     } on FirebaseAuthException catch (error) {
       Get.snackbar(
@@ -216,7 +216,7 @@ class AuthController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
         duration: const Duration(seconds: 10),
         backgroundColor: Colors.red,
-        colorText: Get.theme.snackBarTheme.actionTextColor,
+        colorText: Colors.white,
       );
     }
   }

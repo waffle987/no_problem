@@ -44,9 +44,14 @@ class TownCouncilFeedController extends GetxController {
     return _complaintsStreamController.stream;
   }
 
-  /// Delete Complaint from Firebase
-  Future deleteComplaint({required ComplaintModel complaintModel}) async {
-    await _complaintsCollectionReference.doc(complaintModel.id).delete();
+  /// Update status of complaint
+  void updateStatusOfComplaint({
+    required ComplaintModel complaintModel,
+    required String status,
+  }) {
+    _complaintsCollectionReference
+        .doc(complaintModel.id)
+        .update({"status": status});
   }
 
   void sendForMediation({required ComplaintModel complaintModel}) async {
@@ -59,7 +64,5 @@ class TownCouncilFeedController extends GetxController {
       "description": complaintModel.description,
       "timestamp": complaintModel.timestamp,
     });
-
-    await _complaintsCollectionReference.doc(complaintModel.id).delete();
   }
 }

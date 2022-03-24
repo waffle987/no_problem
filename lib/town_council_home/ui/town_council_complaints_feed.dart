@@ -9,8 +9,11 @@ import 'package:no_problem/town_council_home/ui/town_council_complaints_page.dar
 import 'package:timeago/timeago.dart' as timeago;
 
 class TownCouncilComplaintsFeed extends StatelessWidget {
+  final String status;
+
   const TownCouncilComplaintsFeed({
     Key? key,
+    required this.status,
   }) : super(key: key);
 
   @override
@@ -19,53 +22,169 @@ class TownCouncilComplaintsFeed extends StatelessWidget {
 
     /// GetX controllers
     final TownCouncilFeedController _townCouncilFeedController =
-        Get.put<TownCouncilFeedController>(TownCouncilFeedController());
+        TownCouncilFeedController.to;
 
     return Obx(
       () => _townCouncilFeedController.complaints.value != null
           ? _townCouncilFeedController.complaints.value!.isNotEmpty
               ? ListView.builder(
                   shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
                   itemCount:
                       _townCouncilFeedController.complaints.value!.length,
                   itemBuilder: (_, index) {
                     ComplaintModel complaintModel =
                         _townCouncilFeedController.complaints.value![index];
 
-                    return GestureDetector(
-                      onTap: () => Get.to(() => TownCouncilComplaintsPage(
-                          complaintModel: complaintModel)),
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            bottom: _mediaQuery.size.height * 0.02),
-                        child: Column(
-                          children: [
-                            ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: kPrimaryColour,
-                                child: Text(
-                                  (index + 1).toString(),
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: kSecondaryColour,
+                    if (complaintModel.status == "new" && status == "new") {
+                      return GestureDetector(
+                        onTap: () => Get.to(() => TownCouncilComplaintsPage(
+                              complaintModel: complaintModel,
+                              status: complaintModel.status,
+                            )),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              bottom: _mediaQuery.size.height * 0.02),
+                          child: Column(
+                            children: [
+                              ListTile(
+                                leading: CircleAvatar(
+                                  backgroundColor: kPrimaryColour,
+                                  child: Text(
+                                    (index + 1).toString(),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: kSecondaryColour,
+                                    ),
                                   ),
                                 ),
+                                title: Text(
+                                  complaintModel.name,
+                                ),
+                                subtitle: Text(complaintModel.description),
+                                trailing: Text(
+                                  timeago.format(
+                                      complaintModel.timestamp.toDate()),
+                                ),
                               ),
-                              title: Text(
-                                complaintModel.name,
-                              ),
-                              subtitle: Text(complaintModel.description),
-                              trailing: Text(
-                                timeago
-                                    .format(complaintModel.timestamp.toDate()),
-                              ),
-                            ),
-                            const Divider(),
-                          ],
+                              const Divider(),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    } else if (complaintModel.status == "pending" &&
+                        status == "pending") {
+                      return GestureDetector(
+                        onTap: () => Get.to(() => TownCouncilComplaintsPage(
+                              complaintModel: complaintModel,
+                              status: complaintModel.status,
+                            )),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              bottom: _mediaQuery.size.height * 0.02),
+                          child: Column(
+                            children: [
+                              ListTile(
+                                leading: CircleAvatar(
+                                  backgroundColor: kPrimaryColour,
+                                  child: Text(
+                                    (index + 1).toString(),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: kSecondaryColour,
+                                    ),
+                                  ),
+                                ),
+                                title: Text(
+                                  complaintModel.name,
+                                ),
+                                subtitle: Text(complaintModel.description),
+                                trailing: Text(
+                                  timeago.format(
+                                      complaintModel.timestamp.toDate()),
+                                ),
+                              ),
+                              const Divider(),
+                            ],
+                          ),
+                        ),
+                      );
+                    } else if (complaintModel.status == "sent" &&
+                        status == "sent") {
+                      return GestureDetector(
+                        onTap: () => Get.to(() => TownCouncilComplaintsPage(
+                              complaintModel: complaintModel,
+                              status: complaintModel.status,
+                            )),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              bottom: _mediaQuery.size.height * 0.02),
+                          child: Column(
+                            children: [
+                              ListTile(
+                                leading: CircleAvatar(
+                                  backgroundColor: kPrimaryColour,
+                                  child: Text(
+                                    (index + 1).toString(),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: kSecondaryColour,
+                                    ),
+                                  ),
+                                ),
+                                title: Text(
+                                  complaintModel.name,
+                                ),
+                                subtitle: Text(complaintModel.description),
+                                trailing: Text(
+                                  timeago.format(
+                                      complaintModel.timestamp.toDate()),
+                                ),
+                              ),
+                              const Divider(),
+                            ],
+                          ),
+                        ),
+                      );
+                    } else if (complaintModel.status == "dismiss" &&
+                        status == "dismiss") {
+                      return GestureDetector(
+                        onTap: () => Get.to(() => TownCouncilComplaintsPage(
+                              complaintModel: complaintModel,
+                              status: complaintModel.status,
+                            )),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              bottom: _mediaQuery.size.height * 0.02),
+                          child: Column(
+                            children: [
+                              ListTile(
+                                leading: CircleAvatar(
+                                  backgroundColor: kPrimaryColour,
+                                  child: Text(
+                                    (index + 1).toString(),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: kSecondaryColour,
+                                    ),
+                                  ),
+                                ),
+                                title: Text(
+                                  complaintModel.name,
+                                ),
+                                subtitle: Text(complaintModel.description),
+                                trailing: Text(
+                                  timeago.format(
+                                      complaintModel.timestamp.toDate()),
+                                ),
+                              ),
+                              const Divider(),
+                            ],
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Container();
+                    }
                   },
                 )
               : ListView(

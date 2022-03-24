@@ -7,8 +7,8 @@ import 'package:no_problem/submit_complaint/ui/submit_complaint_page.dart';
 import '../../config/assets.dart';
 import '../widgets/home_details.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class DesktopHomePage extends StatelessWidget {
+  const DesktopHomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,16 @@ class HomePage extends StatelessWidget {
                 EdgeInsets.symmetric(horizontal: _mediaQuery.size.width * 0.05),
             child: const HomeDetails(),
           ),
-          SizedBox(height: _mediaQuery.size.height * 0.10),
+          SizedBox(height: _mediaQuery.size.height * 0.05),
+          const Text(
+            "Potential complaints include:\nFamily, Personal Injury, Employment, Noise, Obstruction of public space, Pets, Littering, Suspicious Activity, and many more",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          SizedBox(height: _mediaQuery.size.height * 0.05),
           Padding(
             padding:
                 EdgeInsets.symmetric(horizontal: _mediaQuery.size.width * 0.30),

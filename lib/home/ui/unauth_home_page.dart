@@ -3,7 +3,7 @@ import 'package:no_problem/general_widgets/centred_view.dart';
 import 'package:no_problem/general_widgets/navigation_bar/navigation_bar.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import 'home_page.dart';
+import 'desktop_home_page.dart';
 
 class UnAuthHomePage extends StatelessWidget {
   const UnAuthHomePage({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class UnAuthHomePage extends StatelessWidget {
               Expanded(
                 child: ScreenTypeLayout(
                   mobile: Container(),
-                  desktop: const HomePage(),
+                  desktop: const DesktopHomePage(),
                 ),
               )
             ],

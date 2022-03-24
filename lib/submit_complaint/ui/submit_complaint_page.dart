@@ -61,10 +61,18 @@ class SubmitComplaintPage extends StatelessWidget {
             ),
             SizedBox(height: _mediaQuery.size.height * 0.05),
             CustomTextFormField(
-              header: "Who are the other parties?",
-              hintText: "What happened?",
+              header: "What is the name of the other parties?",
+              hintText: "Who are involved?",
               textEditingController: _submitComplaintController
                   .nameOfOtherPartiesTextEditingController,
+              textInputType: TextInputType.text,
+            ),
+            SizedBox(height: _mediaQuery.size.height * 0.05),
+            CustomTextFormField(
+              header: "What is your relationship with the other parties?",
+              hintText: "Neighbour, colleague, etc",
+              textEditingController:
+                  _submitComplaintController.relationshipTextEditingController,
               textInputType: TextInputType.text,
             ),
             SizedBox(height: _mediaQuery.size.height * 0.05),
