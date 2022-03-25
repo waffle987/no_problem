@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:no_problem/config/assets.dart';
 import 'package:no_problem/config/ui_helpers.dart';
 import 'package:no_problem/general_widgets/buttons/elongated_button.dart';
 import 'package:no_problem/general_widgets/centred_view.dart';
@@ -267,6 +268,15 @@ class TownCouncilComplaintsPage extends StatelessWidget {
               title: "Case Description",
               subtitle: complaintModel.description,
             ),
+            status == "pending"
+                ? Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: _mediaQuery.size.height * 0.01),
+                    child: SizedBox(
+                        height: _mediaQuery.size.height * 0.30,
+                        child: Image.asset(Assets.pdpaReminder)),
+                  )
+                : Container(),
             SizedBox(height: _mediaQuery.size.height * 0.05),
             status == "new" ? _buildPreliminaryChecksButton() : Container(),
             status == "pending" ? _buildSendForMediationButton() : Container(),

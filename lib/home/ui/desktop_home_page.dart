@@ -54,6 +54,24 @@ class DesktopHomePage extends StatelessWidget {
           SizedBox(height: _mediaQuery.size.height * 0.15),
           Image.asset(Assets.whatWeDoDesktop1),
           SizedBox(height: _mediaQuery.size.height * 0.10),
+          const Text(
+            "How it works?",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+              fontSize: 50.0,
+            ),
+          ),
+          Image.asset(Assets.mediationRoadmap),
+          const Text(
+            "Is it effective?",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+              fontSize: 50.0,
+            ),
+          ),
+          SizedBox(height: _mediaQuery.size.height * 0.10),
           Image.asset(Assets.whatWeDoDesktop2),
           Padding(
             padding:

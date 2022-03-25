@@ -15,6 +15,9 @@ class Assets {
   /// PDPA
   static String pdpaReminder = "assets/pdpa_reminder.png";
 
+  /// Roadmap
+  static String mediationRoadmap = "assets/mediation_roadmap.png";
+
   /// Splash page
   static String complaintsSplashPage = "complaints_splash_page.png";
 }
