@@ -57,11 +57,13 @@ class TownCouncilFeedController extends GetxController {
   void sendForMediation({required ComplaintModel complaintModel}) async {
     _casesCollectionReference.doc(complaintModel.id).set({
       "id": complaintModel.id,
+      "status": complaintModel.status,
       "name": complaintModel.name,
       "phoneNumber": complaintModel.phoneNumber,
       "numberOfParties": complaintModel.numberOfParties,
       "nameOfOtherParties": complaintModel.nameOfParties,
       "description": complaintModel.description,
+      "relationship": complaintModel.relationship,
       "timestamp": complaintModel.timestamp,
     });
   }

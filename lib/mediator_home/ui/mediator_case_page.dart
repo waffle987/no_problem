@@ -68,6 +68,11 @@ class MediatorCasePage extends StatelessWidget {
             ),
             SizedBox(height: _mediaQuery.size.height * 0.02),
             _buildSection(
+              title: "Relationship",
+              subtitle: complaintModel.relationship,
+            ),
+            SizedBox(height: _mediaQuery.size.height * 0.02),
+            _buildSection(
               title: "Case Description",
               subtitle: complaintModel.description,
             ),
