@@ -9,6 +9,9 @@ class Assets {
   static String whatWeDoMobile1 = "assets/mediation_mobile_1.png";
   static String whatWeDoMobile2 = "assets/mediation_mobile_2.png";
 
+  /// Complaints
+  static String typeOfComplaints = "complaints.png";
+
   /// Team page
   static String team = "assets/team.png";
 

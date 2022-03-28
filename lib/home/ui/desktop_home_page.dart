@@ -32,15 +32,6 @@ class DesktopHomePage extends StatelessWidget {
             child: const HomeDetails(),
           ),
           SizedBox(height: _mediaQuery.size.height * 0.05),
-          const Text(
-            "Potential complaints include:\nFamily, Personal Injury, Employment, Noise, Obstruction of public space, Pets, Littering, Suspicious Activity, and many more",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.w900,
-            ),
-          ),
-          SizedBox(height: _mediaQuery.size.height * 0.05),
           Padding(
             padding:
                 EdgeInsets.symmetric(horizontal: _mediaQuery.size.width * 0.30),
@@ -51,6 +42,8 @@ class DesktopHomePage extends StatelessWidget {
               textColour: kSecondaryColour,
             ),
           ),
+          SizedBox(height: _mediaQuery.size.height * 0.05),
+          Image.asset(Assets.typeOfComplaints),
           SizedBox(height: _mediaQuery.size.height * 0.15),
           Image.asset(Assets.whatWeDoDesktop1),
           SizedBox(height: _mediaQuery.size.height * 0.10),
